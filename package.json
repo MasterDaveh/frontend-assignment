@@ -16,5 +16,8 @@
   "workspaces": [
     "packages/*"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.4.17"
+  }
 }
