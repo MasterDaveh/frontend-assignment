@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from 'react';
+import classes from './App.module.sass';
+import { Typography, Input } from 'antd';
+import PokemonList from './components/PokemonList/PokemonList';
+import 'antd/dist/antd.css';
 
 function App() {
+  const { Title, Text } = Typography;
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const onQueryChange = useCallback((e) => {
+    const qry = e.target.value;
+    setSearchQuery(qry);
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={classes.App}>
+      <div className={classes.TitleSection}>
+        <Title>👾 The complete pokèmon repository</Title>
+      </div>
+      <div className={classes.Search}>
+        <Input
+          size="large"
+          placeholder="What's your favorite pokemon?"
+          onChange={onQueryChange}
+          style={{ width: 800 }}
+          allowClear
+        />
+        <Text className={classes.SearchHint}>Start typing and we will update search results as you go 💪</Text>
+      </div>
+      <div className={classes.Results}>
+        <PokemonList query={searchQuery} />
+      </div>
     </div>
   );
 }
